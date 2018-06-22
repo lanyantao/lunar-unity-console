@@ -97,7 +97,7 @@
 
 - (int)variableId
 {
-    return _variable.actionId;
+    return _variable.entryId;
 }
 
 @end

@@ -82,9 +82,9 @@
 
 - (void)testUnregisterAction
 {
-    int id2 = [self registerActionWithName:@"a2"].actionId;
-    int id1 = [self registerActionWithName:@"a1"].actionId;
-    int id3 = [self registerActionWithName:@"a3"].actionId;
+    int id2 = [self registerActionWithName:@"a2"].entryId;
+    int id1 = [self registerActionWithName:@"a1"].entryId;
+    int id3 = [self registerActionWithName:@"a3"].entryId;
     
     [self unregisterActionWithId:id1];
     [self assertActions:@"a2", @"a3", nil];
@@ -195,7 +195,7 @@
     {
         if ([action.name isEqualToString:name])
         {
-            [_actionRegistry unregisterActionWithId:action.actionId];
+            [_actionRegistry unregisterActionWithId:action.entryId];
             return YES;
         }
     }

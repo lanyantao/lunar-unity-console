@@ -255,9 +255,9 @@ class LUActionRegistryFilterTest: TestCase, LUActionRegistryFilterDelegate {
     // MARK: - Unregister actions
 
     func testUnregisterActions() {
-        let id2 = registerAction(name: "a2").actionId
-        let id1 = registerAction(name: "a1").actionId
-        let id3 = registerAction(name: "a3").actionId
+        let id2 = registerAction(name: "a2").entryId
+        let id1 = registerAction(name: "a1").entryId
+        let id3 = registerAction(name: "a3").entryId
         
         unregisterAction(id: id1)
         assertActions(names: "a2", "a3")
@@ -275,9 +275,9 @@ class LUActionRegistryFilterTest: TestCase, LUActionRegistryFilterDelegate {
     func testUnregisterActionFiltered() {
         setFilter(text: "a11")
         
-        let id2 = registerAction(name: "a11").actionId
-        let id1 = registerAction(name: "a1").actionId
-        let id3 = registerAction(name: "a111").actionId
+        let id2 = registerAction(name: "a11").entryId
+        let id1 = registerAction(name: "a1").entryId
+        let id3 = registerAction(name: "a111").entryId
         
         unregisterAction(id: id1)
         assertActions(names: "a11", "a111")
@@ -451,7 +451,7 @@ class LUActionRegistryFilterTest: TestCase, LUActionRegistryFilterDelegate {
         for i in 0..<_actionRegistry.actions.count {
             let action = _actionRegistry.actions[i] as! LUAction
             if action.name == name {
-                _actionRegistry.unregisterAction(withId: action.actionId)
+                _actionRegistry.unregisterAction(withId: action.entryId)
                 return true
             }
         }

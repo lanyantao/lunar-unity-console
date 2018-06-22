@@ -69,7 +69,7 @@
     for (NSInteger actionIndex = _actions.count - 1; actionIndex >= 0; --actionIndex)
     {
         LUAction *action = _actions[actionIndex];
-        if (action.actionId == actionId)
+        if (action.entryId == actionId)
         {
             [_actions removeObjectAtIndex:actionIndex];
             [_delegate actionRegistry:self didRemoveAction:action atIndex:actionIndex];
@@ -135,7 +135,7 @@
     NSUInteger index = 0;
     for (LUCVar *cvar in _variables)
     {
-        if (cvar.actionId == variableId)
+        if (cvar.entryId == variableId)
         {
             return index;
         }

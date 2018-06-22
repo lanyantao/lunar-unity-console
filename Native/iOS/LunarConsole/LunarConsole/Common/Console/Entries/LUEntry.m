@@ -23,9 +23,15 @@
 
 #import "Lunar.h"
 
+@interface LUEntry ()
+
+@property (nonatomic, readwrite, weak) LUEntryGroup *group;
+
+@end
+
 @implementation LUEntry
 
-- (instancetype)initWithId:(int)actionId name:(NSString *)name
+- (instancetype)initWithId:(int)entryId name:(NSString *)name
 {
     self = [super init];
     if (self)
@@ -37,7 +43,7 @@
             return nil;
         }
         
-        _actionId = actionId;
+        _entryId = entryId;
         _name = name;
     }
     return self;
@@ -60,7 +66,7 @@
     if ([object isKindOfClass:[LUEntry class]])
     {
         LUEntry *entry = object;
-        return self.actionId == entry.actionId && [self.name isEqualToString:entry.name];
+        return self.entryId == entry.entryId && [self.name isEqualToString:entry.name];
     }
     
     return NO;
@@ -71,7 +77,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%d: %@", self.actionId, self.name];
+    return [NSString stringWithFormat:@"%d: %@", self.entryId, self.name];
 }
 
 #pragma mark -
@@ -87,6 +93,74 @@
 {
     LU_SHOULD_IMPLEMENT_METHOD
     return CGSizeMake(CGRectGetWidth(tableView.bounds), 44);
+}
+
+@end
+
+@interface LUEntryGroup ()
+
+@property (nonatomic, strong) LUSortedList *entries;
+
+@end
+
+@implementation LUEntryGroup
+
+- (instancetype)initWithName:(NSString *)name
+{
+	self = [super init];
+	if (self)
+	{
+		if (name.length == 0)
+		{
+			NSLog(@"Can't create an entry group: name is nil or empty");
+			self = nil;
+			return nil;
+		}
+		
+		_name = name;
+		_sortingEnabled = YES;
+	}
+	return self;
+}
+
+- (void)addEntry:(LUEntry *)entry
+{
+	[_entries addObject:entry];
+}
+
+- (void)removeEntry:(LUEntry *)entry
+{
+	[_entries removeObject:entry];
+}
+
+#pragma mark -
+#pragma mark NSComparisonMethods
+
+- (NSComparisonResult)compare:(LUEntryGroup *)other
+{
+	return [_name compare:other.name];
+}
+
+#pragma mark -
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+	if ([object isKindOfClass:[LUEntryGroup class]])
+	{
+		LUEntryGroup *entry = object;
+		return [self.name isEqualToString:entry.name];
+	}
+	
+	return NO;
+}
+
+#pragma mark -
+#pragma mark Description
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@", self.name];
 }
 
 @end

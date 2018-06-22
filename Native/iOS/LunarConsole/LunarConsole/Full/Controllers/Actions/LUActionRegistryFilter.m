@@ -164,7 +164,7 @@
     for (NSUInteger index = 0; index < array.count; ++index)
     {
         LUEntry *existing = array[index];
-        if (existing.actionId == entry.actionId)
+        if (existing.entryId == entry.entryId)
         {
             return index;
         }

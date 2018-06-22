@@ -21,16 +21,33 @@
 
 #import <UIKit/UIKit.h>
 
+@class LUEntryGroup;
+
 @interface LUEntry : NSObject
 
-@property (nonatomic, readonly) int actionId; // FIXME: rename
+@property (nonatomic, readonly) int entryId;
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly, weak) LUEntryGroup *group;
 
-- (instancetype)initWithId:(int)actionId name:(NSString *)name;
+- (instancetype)initWithId:(int)entryId name:(NSString *)name;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellAtIndex:(NSUInteger)index;
 - (CGSize)cellSizeForTableView:(UITableView *)tableView;
 
 - (NSComparisonResult)compare:(LUEntry *)other;
+
+@end
+
+@interface LUEntryGroup : NSObject
+
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, assign, getter=isSortingEnabled) BOOL sortingEnabled;
+
+- (instancetype)initWithName:(NSString *)name;
+
+- (void)addEntry:(LUEntry *)entry;
+- (void)removeEntry:(LUEntry *)entry;
+
+- (NSComparisonResult)compare:(LUEntryGroup *)other;
 
 @end

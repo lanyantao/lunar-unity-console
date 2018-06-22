@@ -69,7 +69,7 @@ static NSString * const kScriptMessageAction         = @"console_action";
     if (variable)
     {
         NSDictionary *params = @{
-            @"id"    : [NSNumber numberWithInt:variable.actionId],
+            @"id"    : [NSNumber numberWithInt:variable.entryId],
             @"value" : variable.value
         };
         [_plugin sendScriptMessageName:kScriptMessageSetVariable params:params];
@@ -83,7 +83,7 @@ static NSString * const kScriptMessageAction         = @"console_action";
     
     if (action)
     {
-        NSDictionary *params = @{ @"id" : [NSNumber numberWithInt:action.actionId] };
+        NSDictionary *params = @{ @"id" : [NSNumber numberWithInt:action.entryId] };
         [_plugin sendScriptMessageName:kScriptMessageAction params:params];
     }
 }
