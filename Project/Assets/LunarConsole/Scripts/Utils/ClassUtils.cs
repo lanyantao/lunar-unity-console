@@ -33,40 +33,6 @@ namespace LunarConsolePluginInternal
 
     public static class ClassUtils
     {
-        public static T Cast<T>(object obj) where T : class
-        {
-            return obj as T;
-        }
-
-        public static T TryCast<T>(object obj) where T : class
-        {
-            return obj as T;
-        }
-
-        public static T CreateInstance<T>(Type t, params object[] args) where T : class
-        {
-            try
-            {
-                return (T) Activator.CreateInstance(t, args);
-            }
-            catch (Exception e)
-            {
-                Log.e(e, "Exception while creating an instance of type '{0}'", t);
-            }
-
-            return null;
-        }
-
-        public static bool IsValidEnumValue<T>(int value)
-        {
-            return Enum.IsDefined(typeof(T), value);
-        }
-
-        public static bool IsValidEnumValue<T>(T value)
-        {
-            return Enum.IsDefined(typeof(T), value);
-        }
-
         public static string TypeShortName(Type type)
         {
             if (type != null)
@@ -111,64 +77,6 @@ namespace LunarConsolePluginInternal
                 }
             }
             return outList;
-        }
-
-        public static bool ShouldListMethod(MethodInfo m, string prefix)
-        {
-            return StringUtils.StartsWithIgnoreCase(m.Name, prefix);
-        }
-
-        public static T GetObjectField<T>(object target, string name)
-        {
-            if (target == null)
-            {
-                throw new ArgumentNullException("target");
-            }
-
-            FieldInfo[] fields = target.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            foreach (FieldInfo field in fields)
-            {
-                if (field.Name == name)
-                {
-                    return (T)field.GetValue(target);
-                }
-            }
-
-            throw new ArgumentException("Can't find field: " + name);
-        }
-
-        public static Type TypeForName(string typeName)
-        {
-            if (typeName == null)
-            {
-                throw new ArgumentNullException("typeName");
-            }
-
-            try
-            {
-                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    try
-                    {
-                        foreach (Type type in assembly.GetTypes())
-                        {
-                            if (type.FullName == typeName)
-                            {
-                                return type;
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.e(e, "Exception while resolving type for name '{0}'", typeName);
-            }
-
-            return null;
         }
     }
 }
