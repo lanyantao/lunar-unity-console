@@ -34,7 +34,7 @@ namespace LunarConsolePluginInternal
         [System.Diagnostics.Conditional("LUNAR_DEVELOPMENT")]
         public static void dev(string format, params object[] args)
         {
-            Debug.Log(TAG + " " + StringUtils.TryFormat(format, args));
+            Debug.Log(TAG + " " + StringUtils.Format(format, args));
         }
 
         public static void e(Exception exception)
@@ -51,7 +51,7 @@ namespace LunarConsolePluginInternal
 
         public static void e(Exception exception, string format, params object[] args)
         {
-            e(exception, StringUtils.TryFormat(format, args));
+            e(exception, StringUtils.Format(format, args));
         }
 
         public static void e(Exception exception, string message)
@@ -73,7 +73,7 @@ namespace LunarConsolePluginInternal
 
         public static void e(string format, params object[] args)
         {
-            e(StringUtils.TryFormat(format, args));
+            e(StringUtils.Format(format, args));
         }
 
         public static void e(string message)
@@ -83,7 +83,7 @@ namespace LunarConsolePluginInternal
 
         public static void w(string format, params object[] args)
         {
-            w(StringUtils.TryFormat(format, args));
+            w(StringUtils.Format(format, args));
         }
 
         public static void w(string message)

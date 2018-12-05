@@ -34,7 +34,7 @@ namespace LunarConsolePluginInternal
 
         #region Format
 
-        internal static string TryFormat(string format, params object[] args)
+        internal static string Format(string format, params object[] args)
         {
             if (format != null && args != null && args.Length > 0)
             {
