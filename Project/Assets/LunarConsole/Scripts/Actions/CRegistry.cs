@@ -125,17 +125,18 @@ namespace LunarConsolePluginInternal
             }
 
             IList<CAction> actionsToRemove = new List<CAction>();
-            foreach (var action in m_actions)
+            for (var actionIndex = 0; actionIndex < m_actions.Count; ++actionIndex)
             {
+                var action = m_actions[actionIndex];
                 if (filter(action))
                 {
                     actionsToRemove.Add(action);
                 }
             }
 
-            foreach (var action in actionsToRemove)
+            for (int actionIndex = 0; actionIndex < actionsToRemove.Count; ++actionIndex)
             {
-                RemoveAction(action);
+                RemoveAction(actionsToRemove[actionIndex]);
             }
 
             return actionsToRemove.Count > 0;

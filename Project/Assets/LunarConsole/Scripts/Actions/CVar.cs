@@ -443,8 +443,9 @@ namespace LunarConsolePlugin
 
         public CVar Find(string name)
         {
-            foreach (var cvar in m_variables)
+            for (var i = 0; i < m_variables.Count; ++i)
             {
+                var cvar = m_variables[i];
                 if (cvar.Name == name)
                 {
                     return cvar;

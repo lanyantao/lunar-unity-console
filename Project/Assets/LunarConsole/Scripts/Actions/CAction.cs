@@ -30,7 +30,6 @@ namespace LunarConsolePluginInternal
 {
     public class CAction : IComparable<CAction>
     {
-        static readonly string[] kEmptyArgs = new String[0];
         static int s_nextActionId;
 
         readonly int m_id;
@@ -63,7 +62,7 @@ namespace LunarConsolePluginInternal
         {
             try
             {
-                return ReflectionUtils.Invoke(ActionDelegate, kEmptyArgs); // TODO: remove it
+                return ReflectionUtils.Invoke(ActionDelegate);
             }
             catch (TargetInvocationException e)
             {
@@ -145,6 +144,12 @@ namespace LunarConsolePluginInternal
             m_actionLookupByName = new Dictionary<string, CAction>();
         }
 
+        public CAction this[int index]
+        {
+            get { return m_actions[index]; }
+            set { m_actions[index] = value; }
+        }
+
         public void Add(CAction action)
         {
             m_actions.Add(action);
@@ -184,6 +189,11 @@ namespace LunarConsolePluginInternal
             m_actions.Clear();
             m_actionLookupById.Clear();
             m_actionLookupByName.Clear();
+        }
+
+        public int Count
+        {
+            get { return m_actions.Count; }
         }
 
         #region IEnumerable implementation
